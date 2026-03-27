@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">手表遥控器</string>
+    <string name="btn_start_server">启动服务器</string>
+    <string name="btn_stop_server">停止服务器</string>
+    <string name="btn_open_accessibility">开启无障碍服务</string>
+    <string name="status_server_stopped">服务器未启动</string>
+    <string name="status_server_running">服务器运行中</string>
+    <string name="status_client_connected">手表已连接</string>
+    <string name="status_client_disconnected">等待手表连接…</string>
+    <string name="accessibility_service_description">手表遥控手势执行服务，用于模拟屏幕滑动和点击操作。</string>
+</resources>

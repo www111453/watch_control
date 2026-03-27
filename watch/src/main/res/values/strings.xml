@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">手表遥控</string>
+    <string name="btn_swipe_up">上滑\n下一个</string>
+    <string name="btn_swipe_down">下滑\n上一个</string>
+    <string name="btn_tap_center">暂停</string>
+    <string name="btn_double_tap">点赞</string>
+    <string name="hint_gesture">↑↓ 滑动翻页\n点击暂停  双击点赞\n摇一摇下一个\n长按退出</string>
+    <string name="status_disconnected">未连接 · 长按连接</string>
+    <string name="status_connecting">连接中…</string>
+    <string name="status_connected">已连接</string>
+</resources>
