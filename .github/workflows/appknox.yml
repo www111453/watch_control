@@ -1,0 +1,54 @@
+# 此工作流使用了未经 GitHub 认证的操作。这些操作由第三方提供，并受
+# 独立的服务条款、隐私政策和支持文档约束。
+#
+# Appknox：移动应用安全测试解决方案的领导者 <https://www.appknox.com/>
+#
+# 要使用此工作流，您必须是已有的Appknox客户，并且您的GitHub Advanced Security (GHAS) 已启用
+# 仓库。
+#
+# 如果您*不是*现有客户，请点击此处联系我们，获取许可和定价详情：
+# <https://www.appknox.com/free-trial>。
+#
+# 指导说明：
+#
+# 1. 在您的仓库设置中，导航至‘Secrets’并点击‘新建仓库密钥’。命名该
+# 秘密 APPKNOX_ACCESS_TOKEN，并将您的 appknox 用户令牌粘贴到值字段中。如果您没有 appknox 令牌
+# 或者需要为 GitHub 生成一个新的，请访问 Appknox 平台，前往“账户设置”->“开发者设置”
+# 并创建一个名为 GitHub 的令牌
+#
+# 2. 参考以下详细工作流程，进行必要的调整，然后将其保存到您的仓库中。之后
+# 操作执行完毕后，请在‘安全’选项卡中查看结果
+
+名称: Appknox
+
+于:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+jobs:
+  appknox:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build the app
+        run: ./gradlew build                                         # Update this to build your Android or iOS application
+
+      - name: Appknox GitHub action
+        uses: appknox/appknox-github-action@b7d2bfb2321d5544e97bffcba48557234ab953a4
+        with:
+          appknox_access_token: ${{ secrets.APPKNOX_ACCESS_TOKEN }}
+          file_path: app/build/outputs/apk/debug/app-debug.apk        # Specify the path to your .ipa or .apk here
+          risk_threshold: MEDIUM                                      # Update this to desired risk threshold [LOW, MEDIUM, HIGH, CRITICAL]
+          sarif: Enable
+
+      - name: Upload SARIF to GHAS
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: report.sarif
